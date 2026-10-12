@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "ide_filename": "main.py",
+  "ide_content": "# Welcome to NeonDAW! Here is a secure play_sample loop:\n# Click run code to play it, or go to the DAW and click PLAY to hear the preloaded banger.\nplay_sample(\"electronic/tr8-kick1.wav\")\n",
+  "daw": {
+    "bpm": 128,
+    "theme": "Neon Pink",
+    "tuning_hz": 440.0,
+    "tracks": [
+      {
+        "category": "electronic",
+        "sample": "tr8-kick1.wav",
+        "steps": [true, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false],
+        "fx": {
+          "distortion": false,
+          "delay": false,
+          "reverb": false
+        }
+      },
+      {
+        "category": "electronic",
+        "sample": "tr8-snare1.wav",
+        "steps": [false, false, false, false, true, false, false, false, false, false, false, false, true, false, false, false],
+        "fx": {
+          "distortion": false,
+          "delay": false,
+          "reverb": false
+        }
+      },
+      {
+        "category": "electronic",
+        "sample": "tr8-highhat1.wav",
+        "steps": [false, false, true, false, false, false, true, false, false, false, true, false, false, false, true, false],
+        "fx": {
+          "distortion": false,
+          "delay": false,
+          "reverb": false
+        }
+      },
+      {
+        "category": "electronic",
+        "sample": "wub.wav",
+        "steps": [true, false, false, true, false, true, false, false, true, false, false, true, false, true, false, true],
+        "fx": {
+          "distortion": true,
+          "delay": true,
+          "reverb": true
+        }
+      }
+    ]
+  }
+}
