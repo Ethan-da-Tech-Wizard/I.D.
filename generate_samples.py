@@ -23,7 +23,14 @@ def create_dir(name):
     return path
 
 def save_wav(folder, filename, data):
-    """Normalizes floating-point audio data to 16-bit signed integer PCM and writes to disk."""
+    """
+    Normalizes floating-point audio data to 16-bit signed integer PCM and writes to disk.
+    
+    Digital Audio Invariants:
+      1. Clamps audio array to [-1.0, 1.0] headroom ceiling to prevent wraparound distortion.
+      2. Quantizes normalized floating-point samples to 16-bit signed two's complement integer [-32768, 32767].
+      3. Serializes header chunks (RIFF, fmt , data) conforming to the Microsoft WAV specification.
+    """
     path = os.path.join(folder, filename)
     # Clip signal between -1.0 and 1.0 to avoid harsh digital clipping/overflow
     data = np.clip(data, -1.0, 1.0)
@@ -32,7 +39,15 @@ def save_wav(folder, filename, data):
     wavfile.write(path, SAMPLE_RATE, data)
 
 def generate_kick():
-    """Synthesizes an electronic kick drum with rapid exponential pitch drop."""
+    """
+    Synthesizes an electronic kick drum with rapid exponential pitch drop.
+    
+    Mathematical Synthesis Model:
+      - Time domain: t in [0, 0.4] seconds sampled at 44.1 kHz.
+      - Instantaneous frequency f(t) = 110 * exp(-20t) + 40 Hz, sweeping from 150 Hz to 40 Hz sub.
+      - Phase accumulator: phi(t) = integral(2 * pi * f(tau) dtau) approximated by discrete cumulative sum.
+      - Amplitude envelope: A(t) = exp(-15t) modelling exponential acoustic energy dissipation.
+    """
     t = np.linspace(0, 0.4, int(SAMPLE_RATE * 0.4), endpoint=False)
     # Step 1: Pitch envelope: starts high (150Hz), drops quickly to 40Hz
     freqs = np.exp(-t * 20) * 110 + 40
